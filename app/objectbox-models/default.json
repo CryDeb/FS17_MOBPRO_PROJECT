@@ -1,0 +1,77 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4283453787996008763",
+      "lastPropertyId": "7:7033128161155729174",
+      "name": "FunActivity",
+      "properties": [
+        {
+          "id": "1:7722349931536981583",
+          "name": "id"
+        },
+        {
+          "id": "3:7389496136842327825",
+          "name": "finalDate"
+        },
+        {
+          "id": "4:6964487437741477502",
+          "name": "activityDescription"
+        },
+        {
+          "id": "5:2189513479346819596",
+          "name": "activityDone"
+        },
+        {
+          "id": "7:7033128161155729174",
+          "indexId": "2:5795540621208769072",
+          "name": "myAuthorId"
+        }
+      ]
+    },
+    {
+      "id": "3:8132281413574110781",
+      "lastPropertyId": "4:8132748600333770985",
+      "name": "Author",
+      "properties": [
+        {
+          "id": "1:8943594433358411645",
+          "name": "id"
+        },
+        {
+          "id": "2:1514541678030397075",
+          "name": "name"
+        },
+        {
+          "id": "3:1683701699008007625",
+          "name": "lastname"
+        },
+        {
+          "id": "4:8132748600333770985",
+          "name": "email"
+        }
+      ]
+    }
+  ],
+  "lastEntityId": "3:8132281413574110781",
+  "lastIndexId": "2:5795540621208769072",
+  "lastSequenceId": "0:0",
+  "modelVersion": 2,
+  "retiredEntityUids": [
+    5308162527507905948
+  ],
+  "retiredIndexUids": [
+    8628698300003191658
+  ],
+  "retiredPropertyUids": [
+    3171725986437479330,
+    8891772336642617688,
+    2736200307753399713,
+    1183573324932195954,
+    3082368822101431188,
+    3114277335622066766
+  ],
+  "version": 1
+}
