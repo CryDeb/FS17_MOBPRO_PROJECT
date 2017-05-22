@@ -13,10 +13,16 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import hslu.fs17.mobpro.project.activitytracker.model.Author;
+import hslu.fs17.mobpro.project.activitytracker.model.BoxStorage;
 import hslu.fs17.mobpro.project.activitytracker.model.FunActivity;
+import hslu.fs17.mobpro.project.activitytracker.model.FunActivity_;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+import io.objectbox.query.Query;
 
 
 public class MainActivity extends AppCompatActivity
@@ -24,8 +30,11 @@ public class MainActivity extends AppCompatActivity
 
     private final DateFormation dateFormator;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private Box<FunActivity> boxStoreFunActivity;
+    private Query<FunActivity> queryFunActivity;
 
 
     public MainActivity(){
@@ -37,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.boxStoreFunActivity = BoxStorage.getInstance(getApplication()).boxFor(FunActivity.class);
+        this.queryFunActivity = this.boxStoreFunActivity.query().order(FunActivity_.finalDate).build();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -45,15 +56,14 @@ public class MainActivity extends AppCompatActivity
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        FunActivity funActivity = new FunActivity(new Author("wicki", "dane"), "TestTitle", "Description");
+        this.boxStoreFunActivity.put(funActivity);
+
         List<FunActivity> myDataset = new ArrayList<>();
-        FunActivity fa = new FunActivity(new Author("Dane", "Wicki2"), "Title written", "Description");
-        myDataset.add(fa);
-        myDataset.add(fa);
-        myDataset.add(fa);
-        myDataset.add(fa);
-        myDataset.add(fa);
-        // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
+
+        this.updateGUI(Calendar.getInstance().getTime());
+
         mRecyclerView.setAdapter(mAdapter);
 
         TextView myTextView = (TextView) findViewById(R.id.DateShower);
@@ -86,6 +96,10 @@ public class MainActivity extends AppCompatActivity
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);
+
+
+        this.updateGUI(calendar.getTime());
+
         TextView tv = (TextView) findViewById(R.id.DateShower);
         tv.setText(dateFormator.getString(calendar));
     }
@@ -100,4 +114,12 @@ public class MainActivity extends AppCompatActivity
         this.startActivity(startIntentStatisticActivity);
     }
 
+    public void updateGUI(Query<FunActivity> pQueryFunActivity){
+        List<FunActivity> listFunActivity = pQueryFunActivity.find();
+        this.mAdapter.updateFunActivityList(listFunActivity);
+    }
+
+    public void updateGUI(Date equalDate) {
+        this.updateGUI(this.boxStoreFunActivity.query().order(FunActivity_.finalDate).build());
+    }
 }

@@ -1,5 +1,6 @@
 package hslu.fs17.mobpro.project.activitytracker.model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import io.objectbox.annotation.Entity;
@@ -42,6 +43,7 @@ public class FunActivity {
         this.author = author;
         this.title = title;
         this.activityDescription = des;
+        this.finalDate = Calendar.getInstance().getTime();
     }
 
     @Generated(402385367)
@@ -69,29 +71,12 @@ public class FunActivity {
         this.activityDescription = activityDescription;
     }
 
-    public Date getDate() {
-        return finalDate;
-    }
-
-    public void changeDate(Date newDate) {
-        this.finalDate = newDate;
-    }
-
     public boolean isActivityDone() {
         return activityDone;
     }
 
     public void setActivityDone(boolean activityDone) {
         this.activityDone = activityDone;
-    }
-
-
-    public Date getFinalDate() {
-        return finalDate;
-    }
-
-    public void setFinalDate(Date finalDate) {
-        this.finalDate = finalDate;
     }
 
     public boolean getActivityDone() {
@@ -122,5 +107,13 @@ public class FunActivity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
     }
 }

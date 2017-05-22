@@ -63,6 +63,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     }
 
+    public void updateFunActivityList(List<FunActivity> listFunActiv) {
+        this.funActivities = listFunActiv;
+        if(listFunActiv.size() > 0){
+            System.out.println(listFunActiv.get(0).getTitle());
+        }
+        System.out.println("TEST" + listFunActiv.size());
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return funActivities.size();

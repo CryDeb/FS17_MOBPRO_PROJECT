@@ -5,12 +5,13 @@ import android.content.Context;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class DateFormation {
     private SimpleDateFormat sDateFormat;
 
     public DateFormation(Context applicationContext) {
-        sDateFormat = (SimpleDateFormat) android.text.format.DateFormat.getDateFormat(applicationContext);
+        this.sDateFormat = (SimpleDateFormat) android.text.format.DateFormat.getDateFormat(applicationContext);
     }
 
     public String getString(Calendar calendar) {

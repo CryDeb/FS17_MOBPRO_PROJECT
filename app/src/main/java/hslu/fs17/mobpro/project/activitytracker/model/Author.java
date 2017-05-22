@@ -63,6 +63,6 @@ public class Author {
     }
 
     public String getWholeName() {
-        return this.familyname + " " + this.name;
+        return this.familyname + " " + this.name + " " + this.id;
     }
 }
