@@ -4,6 +4,7 @@ import java.util.Date;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Index;
 import io.objectbox.annotation.Relation;
 import io.objectbox.annotation.Generated;
 import io.objectbox.annotation.apihint.Internal;
@@ -23,6 +24,7 @@ public class FunActivity {
     Author author;
 
     private String title;
+    @Index
     private Date finalDate;
     private String activityDescription;
     private boolean activityDone;

@@ -1,6 +1,7 @@
 package hslu.fs17.mobpro.project.activitytracker;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainv2);
+        setContentView(R.layout.activity_main);
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
@@ -54,8 +55,6 @@ public class MainActivity extends AppCompatActivity
         // specify an adapter (see also next example)
         mAdapter = new MyAdapter(myDataset);
         mRecyclerView.setAdapter(mAdapter);
-
-
 
         TextView myTextView = (TextView) findViewById(R.id.DateShower);
         try {
@@ -89,6 +88,16 @@ public class MainActivity extends AppCompatActivity
         calendar.set(year, month, dayOfMonth);
         TextView tv = (TextView) findViewById(R.id.DateShower);
         tv.setText(dateFormator.getString(calendar));
+    }
+
+    public void startCreateActivity(View view) {
+        Intent startIntentCreateActivity = new Intent(this, AddFunActivity.class);
+        this.startActivity(startIntentCreateActivity);
+    }
+
+    public void startStatisticActivity(View view) {
+        Intent startIntentStatisticActivity = new Intent(this, FunActivityStatistic.class);
+        this.startActivity(startIntentStatisticActivity);
     }
 
 }

@@ -20,7 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".App"
+            android:name=".AddFunActivity"
+            android:label="@string/title_activity_app"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FunActivityStatistic"
             android:label="@string/title_activity_app"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

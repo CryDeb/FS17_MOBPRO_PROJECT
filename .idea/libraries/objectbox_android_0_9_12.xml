@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="objectbox-android-0.9.12">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/08713693a0a1ff34ac0809cd1820d545d09f9ab1/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/08713693a0a1ff34ac0809cd1820d545d09f9ab1/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/b2687df2fbe688ce5030b2d802cc59370e6ac808/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/b2687df2fbe688ce5030b2d802cc59370e6ac808/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
