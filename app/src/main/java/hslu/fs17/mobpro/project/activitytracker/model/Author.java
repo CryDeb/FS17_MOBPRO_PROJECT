@@ -16,8 +16,9 @@ public class Author {
     private String lastname;
     private String email;
 
-    public Author(final String name) {
+    public Author(final String name, final String familyname) {
         this.name = name;
+        this.lastname = familyname;
     }
 
 
@@ -59,5 +60,9 @@ public class Author {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getWholeName() {
+        return this.lastname + this.name;
     }
 }
