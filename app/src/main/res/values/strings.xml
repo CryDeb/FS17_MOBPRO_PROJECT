@@ -7,4 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="info_email">spammylive@gmail.com</string>
     <string name="title_activity_app">App</string>
+    <string name="change_date">Change Date</string>
+    <string name="date_label">Date:</string>
 </resources>

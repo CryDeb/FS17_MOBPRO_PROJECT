@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:4283453787996008763",
-      "lastPropertyId": "6:3114277335622066766",
+      "lastPropertyId": "7:7033128161155729174",
       "name": "FunActivity",
       "properties": [
         {
@@ -25,9 +25,9 @@
           "name": "activityDone"
         },
         {
-          "id": "6:3114277335622066766",
-          "indexId": "1:8628698300003191658",
-          "name": "authorId"
+          "id": "7:7033128161155729174",
+          "indexId": "2:5795540621208769072",
+          "name": "myAuthorId"
         }
       ]
     },
@@ -56,19 +56,22 @@
     }
   ],
   "lastEntityId": "3:8132281413574110781",
-  "lastIndexId": "1:8628698300003191658",
+  "lastIndexId": "2:5795540621208769072",
   "lastSequenceId": "0:0",
   "modelVersion": 2,
   "retiredEntityUids": [
     5308162527507905948
   ],
-  "retiredIndexUids": [],
+  "retiredIndexUids": [
+    8628698300003191658
+  ],
   "retiredPropertyUids": [
     3171725986437479330,
     8891772336642617688,
     2736200307753399713,
     1183573324932195954,
-    3082368822101431188
+    3082368822101431188,
+    3114277335622066766
   ],
   "version": 1
 }
