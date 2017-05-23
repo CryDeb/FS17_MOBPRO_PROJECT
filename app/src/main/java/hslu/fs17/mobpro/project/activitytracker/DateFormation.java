@@ -2,6 +2,7 @@ package hslu.fs17.mobpro.project.activitytracker;
 
 import android.content.Context;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,5 +23,12 @@ public class DateFormation {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(sDateFormat.parse(string));
         return calendar;
+    }
+
+    public Calendar removeHour(Calendar calendar) throws ParseException {
+        final Calendar cal = Calendar.getInstance();
+        final String parsed = sDateFormat.format(cal.getTime());
+        cal.setTime(sDateFormat.parse(parsed));
+        return cal;
     }
 }

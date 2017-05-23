@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +30,7 @@ import io.objectbox.query.Query;
 public class MainActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener  {
 
-    private final DateFormation dateFormator;
+    private DateFormation dateFormator;
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -43,8 +45,10 @@ public class MainActivity extends AppCompatActivity
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        dateFormator = new DateFormation(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         this.boxStoreFunActivity = BoxStorage.getInstance(getApplication()).boxFor(FunActivity.class);
         this.queryFunActivity = this.boxStoreFunActivity.query().order(FunActivity_.finalDate).build();
@@ -56,13 +60,14 @@ public class MainActivity extends AppCompatActivity
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        FunActivity funActivity = new FunActivity(new Author("wicki", "dane"), "TestTitle", "Description");
+        FunActivity funActivity = null;
+        funActivity = new FunActivity(new Author("wicki", "dane"), "TestTitle", "Description", this.dateFormator.getString(Calendar.getInstance()));
         this.boxStoreFunActivity.put(funActivity);
 
         List<FunActivity> myDataset = new ArrayList<>();
         mAdapter = new MyAdapter(myDataset);
 
-        this.updateGUI(Calendar.getInstance().getTime());
+        this.updateGUI(Calendar.getInstance());
 
         mRecyclerView.setAdapter(mAdapter);
 
@@ -96,9 +101,7 @@ public class MainActivity extends AppCompatActivity
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, dayOfMonth);
-
-
-        this.updateGUI(calendar.getTime());
+        this.updateGUI(calendar);
 
         TextView tv = (TextView) findViewById(R.id.DateShower);
         tv.setText(dateFormator.getString(calendar));
@@ -119,7 +122,7 @@ public class MainActivity extends AppCompatActivity
         this.mAdapter.updateFunActivityList(listFunActivity);
     }
 
-    public void updateGUI(Date equalDate) {
-        this.updateGUI(this.boxStoreFunActivity.query().order(FunActivity_.finalDate).build());
+    public void updateGUI(Calendar equalDate) {
+        this.updateGUI(this.boxStoreFunActivity.query().equal(FunActivity_.finalDate, this.dateFormator.getString(equalDate)).build());
     }
 }
