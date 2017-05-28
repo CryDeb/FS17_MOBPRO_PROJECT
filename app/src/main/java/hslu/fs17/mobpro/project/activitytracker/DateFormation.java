@@ -1,18 +1,14 @@
 package hslu.fs17.mobpro.project.activitytracker;
 
-import android.content.Context;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class DateFormation {
     private SimpleDateFormat sDateFormat;
 
-    public DateFormation(Context applicationContext) {
-        this.sDateFormat = (SimpleDateFormat) android.text.format.DateFormat.getDateFormat(applicationContext);
+    public DateFormation(final SimpleDateFormat sdf) {
+        this.sDateFormat = sdf;
     }
 
     public String getString(Calendar calendar) {

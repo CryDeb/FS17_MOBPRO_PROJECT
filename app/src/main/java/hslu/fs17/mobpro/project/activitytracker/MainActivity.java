@@ -6,16 +6,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import hslu.fs17.mobpro.project.activitytracker.model.Author;
@@ -23,7 +23,6 @@ import hslu.fs17.mobpro.project.activitytracker.model.BoxStorage;
 import hslu.fs17.mobpro.project.activitytracker.model.FunActivity;
 import hslu.fs17.mobpro.project.activitytracker.model.FunActivity_;
 import io.objectbox.Box;
-import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 
 
@@ -37,15 +36,16 @@ public class MainActivity extends AppCompatActivity
 
     private Box<FunActivity> boxStoreFunActivity;
     private Query<FunActivity> queryFunActivity;
+    private Box<Author> boxStoreAuthor;
 
 
     public MainActivity(){
         super();
-        dateFormator = new DateFormation(this);
+        dateFormator = new DateFormation((SimpleDateFormat) android.text.format.DateFormat.getDateFormat(this));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        dateFormator = new DateFormation(this);
+        dateFormator = new DateFormation((SimpleDateFormat) android.text.format.DateFormat.getDateFormat(this));
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -61,15 +61,51 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         FunActivity funActivity = null;
-        funActivity = new FunActivity(new Author("wicki", "dane"), "TestTitle", "Description", this.dateFormator.getString(Calendar.getInstance()));
-        this.boxStoreFunActivity.put(funActivity);
+        boxStoreAuthor = BoxStorage.getInstance(getApplication()).boxFor(Author.class);
+        Author a = new Author("wicki", "dane");
+        funActivity = new FunActivity(a, "TestTitle", "Description", this.dateFormator.getString(Calendar.getInstance()));
+
+        //this.boxStoreAuthor.put(a);
+        //this.boxStoreFunActivity.put(funActivity);
+
+        new HttpHandler().execute("http://localhost:123456");
 
         List<FunActivity> myDataset = new ArrayList<>();
-        mAdapter = new MyAdapter(myDataset);
+        mAdapter = new MyAdapter(myDataset, this, this.boxStoreFunActivity);
 
         this.updateGUI(Calendar.getInstance());
 
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean b) {
+
+            }
+        });
+
+        mRecyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemIndex = mRecyclerView.indexOfChild(v);
+                FunActivity fa = mAdapter.getItemList().get(itemIndex);
+                System.out.println("Hello");
+                if (v instanceof CheckBox) {
+                    CheckBox chbx = (CheckBox) v;
+                    fa.setActivityDone(chbx.isChecked());
+                    boxStoreFunActivity.put(fa);
+                }
+            }
+        });
 
         TextView myTextView = (TextView) findViewById(R.id.DateShower);
         try {

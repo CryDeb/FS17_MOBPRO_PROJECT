@@ -21,7 +21,7 @@
             android:text="You have done 8 out of 10 Activities" />
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/procentage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="You are 80% Cool !"

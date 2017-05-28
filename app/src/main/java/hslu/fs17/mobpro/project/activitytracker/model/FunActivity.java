@@ -1,18 +1,14 @@
 package hslu.fs17.mobpro.project.activitytracker.model;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import hslu.fs17.mobpro.project.activitytracker.DateFormation;
+import io.objectbox.BoxStore;
 import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Generated;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
 import io.objectbox.annotation.Relation;
-import io.objectbox.annotation.Generated;
 import io.objectbox.annotation.apihint.Internal;
-import io.objectbox.Box;
-import io.objectbox.BoxStore;
 import io.objectbox.relation.ToOne;
+import io.objectbox.Box;
 
 
 @Entity
@@ -116,5 +112,9 @@ public class FunActivity {
 
     public void setFinalDate(String finalDate) {
         this.finalDate = finalDate;
+    }
+
+    public long getID() {
+        return this.id;
     }
 }

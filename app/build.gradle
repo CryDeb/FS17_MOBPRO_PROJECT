@@ -14,7 +14,7 @@ uploadArchives.enabled = false
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "hslu.fs17.mobpro.project.activitytracker"
@@ -26,16 +26,25 @@ android {
 }
 
 dependencies {
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
-
     })
-    compile 'io.objectbox:objectbox-android:0.9.12'
+    testCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
+    })
     compile 'io.objectbox:objectbox-android:0.9.12'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    testCompile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     androidTestCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.testng:testng:6.9.6'
+    testCompile 'org.mockito:mockito-core:2.8.9'
+
 }
