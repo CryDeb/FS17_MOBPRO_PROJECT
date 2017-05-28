@@ -1,8 +1,12 @@
 package hslu.fs17.mobpro.project.activitytracker;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,10 +33,13 @@ import io.objectbox.query.Query;
 public class MainActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener  {
 
+    private final String URL_TO_SERVER = "http://192.168.1.150:80";
+
     private DateFormation dateFormator;
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private HttpHandler httpHandler;
 
     private Box<FunActivity> boxStoreFunActivity;
     private Query<FunActivity> queryFunActivity;
@@ -49,6 +56,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.httpHandler = new HttpHandler();
+
 
         this.boxStoreFunActivity = BoxStorage.getInstance(getApplication()).boxFor(FunActivity.class);
         this.queryFunActivity = this.boxStoreFunActivity.query().order(FunActivity_.finalDate).build();
@@ -62,13 +71,32 @@ public class MainActivity extends AppCompatActivity
 
         FunActivity funActivity = null;
         boxStoreAuthor = BoxStorage.getInstance(getApplication()).boxFor(Author.class);
-        Author a = new Author("wicki", "dane");
-        funActivity = new FunActivity(a, "TestTitle", "Description", this.dateFormator.getString(Calendar.getInstance()));
 
-        //this.boxStoreAuthor.put(a);
-        //this.boxStoreFunActivity.put(funActivity);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        new HttpHandler().execute("http://localhost:123456");
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.INTERNET)) {
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET}, 2);
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+                System.out.println("Requested");
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.INTERNET}, 2);
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            this.httpHandler.execute(URL_TO_SERVER);
+        }
 
         List<FunActivity> myDataset = new ArrayList<>();
         mAdapter = new MyAdapter(myDataset, this, this.boxStoreFunActivity);
@@ -160,5 +188,29 @@ public class MainActivity extends AppCompatActivity
 
     public void updateGUI(Calendar equalDate) {
         this.updateGUI(this.boxStoreFunActivity.query().equal(FunActivity_.finalDate, this.dateFormator.getString(equalDate)).build());
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 2: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    this.httpHandler.execute(URL_TO_SERVER);
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+
+                } else {
+                    this.onBackPressed();
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
