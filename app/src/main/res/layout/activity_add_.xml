@@ -12,37 +12,48 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
-        android:weightSum="1">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.05">
+            android:gravity="center"
+            android:layout_weight="1"
+            >
 
             <TextView
                 android:id="@+id/ActivityTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.05"
                 android:text="Create your Activity"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                />
 
             <TextView
                 android:id="@+id/dateinput_txt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignTop="@id/ActivityTitle"
-                android:layout_marginTop="43dp"
-                android:ems="20"
                 android:inputType="textMultiLine"
                 android:onClick="asdf"
                 android:text="2/2/2012"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/ActivityTitle"
+                />
+
+            <EditText
+                android:id="@+id/descriptioninput_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:background="@drawable/border"
+                android:lines="10"
+                android:text="Set a Description"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                />
 
             <EditText
                 android:id="@+id/titleinput_txt"
@@ -51,30 +62,18 @@
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:text="Set the Title of the Activity"
-                android:layout_alignTop="@id/dateinput_txt"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="10dp" />
-
-            <EditText
-                android:id="@+id/descriptioninput_txt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/button5"
-                android:layout_alignParentStart="true"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:lines="10"
-                android:text="Set a Description"
-                android:textAlignment="viewStart"
-                android:layout_below="@+id/titleinput_txt" />
+                android:textAlignment="center"
+                android:layout_above="@id/descriptioninput_txt"
+                />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:onClick="saveNewActivity"
-                android:text="Save Activity" />
+                android:text="Save Activity"
+                android:layout_alignParentBottom="true"
+                />
 
         </RelativeLayout>
 
